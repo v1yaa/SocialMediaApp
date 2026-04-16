@@ -14,7 +14,6 @@ public class NotificationController {
             System.out.println("  No new notifications.");
             return;
         }
-
         System.out.println("  Notifications (" + user.getNotifications().size() + "):");
         System.out.println("  " + "-".repeat(46));
         int i = 1;
@@ -23,7 +22,6 @@ public class NotificationController {
             i++;
         }
         System.out.println("  " + "-".repeat(46));
-
         user.clearNotifications();
         System.out.println("  [✓] All notifications marked as read.");
     }
