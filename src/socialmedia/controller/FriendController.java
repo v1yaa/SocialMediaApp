@@ -11,14 +11,12 @@ import java.util.Scanner;
 public class FriendController {
 
     private UserController userController;
-
     public FriendController(UserController userController) {
         this.userController = userController;
     }
 
     // ── Send a friend request ─────────────────────────────
     public void sendRequest(User sender, String targetUsername) {
-
         if (!userController.userExists(targetUsername)) {
             System.out.println("  [!] User '" + targetUsername + "' does not exist.");
             return;
@@ -35,7 +33,6 @@ public class FriendController {
             System.out.println("  [!] Friend request already sent to this user.");
             return;
         }
-
         User target = userController.getUser(targetUsername);
 
         // If target already sent ME a request, auto-accept both ways
@@ -59,7 +56,6 @@ public class FriendController {
             System.out.println("  No pending friend requests.");
             return;
         }
-
         System.out.println("  Pending Friend Requests (" + me.getReceivedRequests().size() + "):");
         System.out.println("  " + "-".repeat(46));
         int index = 1;
@@ -79,7 +75,6 @@ public class FriendController {
             System.out.println("  [!] No request found from '" + requesterUsername + "'.");
             return;
         }
-
         User requester = userController.getUser(requesterUsername);
         if (requester == null) {
             System.out.println("  [!] User not found.");
@@ -97,7 +92,6 @@ public class FriendController {
         // Notify both users
         me.addNotification("You are now friends with " + requester.getName() + "!");
         requester.addNotification(me.getName() + " accepted your friend request!");
-
         System.out.println("  [✓] You are now friends with " + requester.getName() + "!");
     }
 
@@ -107,13 +101,11 @@ public class FriendController {
             System.out.println("  [!] No request found from '" + requesterUsername + "'.");
             return;
         }
-
         User requester = userController.getUser(requesterUsername);
         me.getReceivedRequests().remove(requesterUsername);
         if (requester != null) {
             requester.getSentRequests().remove(me.getUsername());
         }
-
         System.out.println("  [✓] Friend request from '" + requesterUsername + "' rejected.");
     }
 
@@ -121,8 +113,7 @@ public class FriendController {
     public void handleAcceptReject(User me, String requesterUsername, Scanner scanner) {
         System.out.print("  Accept or Reject this request? (a/r): ");
         String choice = scanner.nextLine().trim().toLowerCase();
-
-        if      (choice.equals("a")) acceptRequest(me, requesterUsername);
+        if (choice.equals("a")) acceptRequest(me, requesterUsername);
         else if (choice.equals("r")) rejectRequest(me, requesterUsername);
         else System.out.println("  [!] Invalid input. Returning to menu.");
     }
